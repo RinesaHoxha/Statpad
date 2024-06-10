@@ -1,0 +1,307 @@
+{% include "header.html" %}
+
+<!-- NAVBAR SECTION -->
+{% include "navbar.html" %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/matches.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+
+<!-- BANNER -->
+<div class="section subbanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="caption">Football Scores</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-1 sidebar">
+    <div class="sidebar-header">
+        <h5 class ="hg-border-1" style="font-size: 20px;margin-top: 90px;">Pinned Leagues</h5>
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link league-link"  href="/matches/view?match_date=&league_name=Premier%20League" id="premierLeagueLink">Premier League</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=LaLiga" id="laLigaLink">LaLiga</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Bundesliga" id="bundesligaLink">Bundesliga</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Serie%20A" id="serieALink">Serie A</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Ligue%201" id="ligue1Link">Ligue 1</a>
+            <section class="info-section">
+            <div class="info-container">
+                <h5 class ="hg-border-1" style="font-size: 20px">Predict Winner</h5>
+     <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-mdff-6">
+        <form id="predictionForm">
+          <div class="form-group">
+            <label for="team1">Team 1:</label>
+            <input type="text" class="form-control" id="team1" name="team1" required>
+          </div>
+
+          <div class="form-group">
+            <label for="team2">Team 2:</label>
+            <input type="text" class="form-control" id="team2" name="team2" required>
+          </div>
+
+          <button type="button" class="btn btn-primary" style="background-color: #338766;" onclick="predictWinner()">Predict</button>
+        </form>
+
+        <div id="predictionResult" class="mt-3" style="font-weight: bold"></div>
+      </div>
+    </div>
+  </div>
+
+
+    <script>
+        function predictWinner() {
+            const team1 = document.getElementById('team1').value;
+            const team2 = document.getElementById('team2').value;
+
+            fetch(`/predictions/predict_winner?team1=${team1}&team2=${team2}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('predictionResult').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+        </li>
+    </ul>
+
+</div>
+
+<!-- Date Selection Form -->
+<div class="form-container">
+    <form id="dateSelectionForm" action="/matches/view" method="get">
+        <label class="form-label" for="matchDate">Select a Date:</label>
+        <input type="date" id="matchDate" name="match_date" class="date-input">
+        <input type="submit" value="Submit" class="submit-button">
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all league links
+        const leagueLinks = document.querySelectorAll('.league-link');
+
+        // Add click event listener to each league link
+        leagueLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                // Get the selected date from the date input
+                const selectedDate = document.getElementById('matchDate').value;
+
+                // Update the href of the league link with the selected date
+                link.href = `/matches/view?match_date=${selectedDate}&league_name=${encodeURIComponent(link.innerText.trim())}`;
+            });
+        });
+    });
+</script>
+
+
+    <div class="recent-highlights">
+        <div>
+
+            <a href="{{url_for('highlights_view')}}" class ="hg-border"><h3>Watch Latest Highlights ▶ </h3></a>
+        </div>
+        {% for i in hg[-5:] %}
+                <div class="highlight-item">
+
+                    <a href="{{ url_for('highlight_detail', video_id=i.match_name) }}">{{ i.match_name }}</a>
+                </div>
+        {% endfor %}
+        <div>
+
+            <a href="{{url_for('view_news')}}" class ="hg-border"><h3> Latest News 📰  </h3></a>
+        </div>
+        {% for i in news[-5:] %}
+                <div class="highlight-item">
+                    <img src="{{i.image_url}}" width="95%">
+                    <a href="{{i.url}}" target="_blank">{{ i.title }}</a>
+                    
+                </div>
+        {% endfor %}
+    </div>
+
+
+<script>
+    // Function to update scores for today's date
+    function updateScoresForToday() {
+        // Send a request to the /matches/scrape-scores/ endpoint for today's date
+        fetch(`/matches/scrape-scores/`, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                console.log("Scores for today updated successfully!");
+            } else {
+                console.error("Failed to update scores for today.");
+            }
+        })
+        .catch(error => {
+            console.error("Error updating scores for today:", error);
+        });
+    }
+
+    // Function to get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Get the selected date from the query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedDate = urlParams.get('match_date');
+
+    // Check if the selected date is today's date
+    if (!selectedDate || selectedDate === getCurrentDate()) {
+        // If no date is selected or it's today's date, update scores for today
+        updateScoresForToday();
+    }
+
+    document.getElementById("dateSelectionForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const selectedDate = document.getElementById("matchDate").value;
+        // Send a request to the /matches/scrape-scores/ endpoint with the selected date
+        fetch(`/matches/scrape-scores/?date=${selectedDate}`, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                console.log("Scores updated successfully!");
+                // Redirect the user to the /matches/view page with the selected date
+                window.location.href = `/matches/view?match_date=${selectedDate}`;
+            } else {
+                console.error("Failed to update scores.");
+            }
+        })
+        .catch(error => {
+            console.error("Error updating scores:", error);
+        });
+    });
+</script>
+
+
+<div class="container">
+    {% set displayed_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "Champions League", "Europa League"] %}
+
+    {# Display specified leagues first #}
+    {% for league in displayed_leagues %}
+        {% if league in scores|map(attribute='league') %}
+            {% set league_data = scores|selectattr('league', 'eq', league)|first %}
+            {% set league_scores = scores|selectattr('league', 'eq', league)|sort(attribute='score') %}
+            <table class="table table-striped smaller-table">
+                <thead>
+                    <tr>
+                        <th class="table-head" colspan="3">
+                            <div class="league-info">
+                                <img src="{{ league_data.league_img }}" alt="{{ league_data.league }}" class="league-logo">
+                                {{ league }}
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for score in league_scores if score.league_img != ["https://cdn.resfu.com/media/img/flags/st3/small/am.png?size=30x&lossy=1","https://cdn.resfu.com/media/img/flags/st3/small/kw.png?size=30x&lossy=1","https://cdn.resfu.com/media/img/flags/st3/small/eg.png?size=30x&lossy=1"] %}
+                        <tr class="league-title-row">
+                            <td class="team-cell home-team">
+                                {{ score.home_team }}
+                                <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
+                            </td>
+                            <td class="team-cell score">
+                                {% set team1 = score.home_team %}
+                                {% set team2 = score.away_team %}
+                                {% set matching_href = live_game_href | selectattr('team_1', 'eq', team1) | selectattr('team_2', 'eq', team2) | first %}
+                                {% if matching_href %}
+                                    <a href="{{ matching_href.href_link }}" class="score-link" target="_blank">
+                                        <div class="score-text">
+                                            <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
+                                                {{ score.score }}
+                                            </div>
+                                            <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};" class="status">
+                                                {{ score.match_status }}
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
+                                        {{ score.score }}
+                                    </div>
+                                    <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};" class="status">
+                                        {{ score.match_status }}
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td class="team-cell away-team">
+                                <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class=team-logo">
+                                {{ score.away_team }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endfor %}
+
+    {# Display the rest of the leagues #}
+    {% for league in scores|map(attribute='league')|unique if league not in displayed_leagues %}
+        {% set league_data = scores|selectattr('league', 'eq', league)|first %}
+        {% set league_scores = scores|selectattr('league', 'eq', league)|sort(attribute='score') %}
+        <table class="table table-striped smaller-table">
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        <div class="league-info">
+                            <img src="{{ league_data.league_img }}" alt="{{ league_data.league }}" class="league-logo">
+                            {{ league }}
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in league_scores %}
+                    <tr class="league-title-row">
+                        <td class="team-cell home-team">
+                            {{ score.home_team }}
+                            <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
+                        </td>
+                        <td class="team-cell score">
+                            {% set team1 = score.home_team %}
+                            {% set team2 = score.away_team %}
+                            {% set matching_href = live_game_href | selectattr('team_1', 'eq', team1) | selectattr('team_2', 'eq', team2) | first %}
+                            {% if matching_href %}
+                                <a href="{{ matching_href.href_link }}" class="score-link" target="_blank">
+                                    <div class="score-text">
+                                        <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
+                                            {{ score.score }}
+                                        </div>
+                                        <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};" class="status">
+                                            {{ score.match_status }}
+                                        </div>
+                                    </div>
+                                </a>
+                            {% else %}
+                                <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
+                                    {{ score.score }}
+                                </div>
+                                <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};" class="status">
+                                    {{ score.match_status }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="team-cell away-team">
+                            <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class="team-logo">
+                            {{ score.away_team }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</div>
+
+{% include "footer.html" %}

@@ -1,0 +1,1600 @@
+{% include "header.html" %}
+{% include "navbar.html" %}
+<script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/standings.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+<!-- BANNER -->
+<div class="section subbanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="caption">COMPETITIONS</div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="leagues">
+      <a href="#" class="ligtable custom-button" data-table="premierleagueTable" onclick="showTable('premierleagueTable'); return false;">Premier League</a>
+      <a href="#" class="ligtable custom-button" data-table="laligaTable" onclick="showTable('laligaTable'); return false;">La Liga</a>
+      <a href="#" class="ligtable custom-button" data-table="serieaTable" onclick="showTable('serieaTable'); return false;">Serie A</a>
+      <a href="#" class="ligtable custom-button" data-table="bundesligaTable" onclick="showTable('bundesligaTable'); return false;">Bundesliga</a>
+      <a href="#" class="ligtable custom-button" data-table="ligue1Table" onclick="showTable('ligue1Table'); return false;">Ligue 1</a>
+      <a href="#" class="ligtable custom-button" data-table="UCLTable" onclick="showTable('championsTable'); return false;">Champions League</a>
+      <a href="#" class="ligtable custom-button" data-table="EuropaTable" onclick="showTable('europeTable'); return false;">Europa League</a>
+</div>
+
+
+<div class="table-container" id="laligaTable" style="display: block;">
+    <img src="https://crystalpng.com/wp-content/uploads/2023/06/La-liga-new-logo-circle-red.png" alt="La Liga Logo" class="league-image">
+    <h1>Spanish La Liga 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#laliga-home">Table</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu1">Coaches</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu2">Media</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu3">Stadiums</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="laliga-home" class="tab-pane fade in active">
+                   <table>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[:20] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays [:2]}}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="laliga-menu1" class="tab-pane fade">
+                <table class="coach-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in coaches[:20] %}
+                    <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
+                        <td>{{ i.coach_name }}</td>
+
+                        <td>{{ i.club_name }}</td>
+                        <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                </div>
+<div id="laliga-menu5" class="tab-pane fade">
+    <table class="coach-table">
+        <thead>
+            <tr>
+                <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[0].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
+            </tr>
+        </thead>
+        <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "LaLiga" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+    </table>
+</div>
+
+
+            <div id="laliga-menu2" class="tab-pane fade">
+                <div class="row">
+                    {% for i in media[:12] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.link }}" class="card-img-top" alt="Media Image">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="laliga-menu3" class="tab-pane fade">
+                <div class="row">
+                    {% for i in stadium[:20] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
+                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
+                            <p>{{i.name}}</p>
+                            <p>{{i.capacity}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="laliga-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players if player.league_name == "La Liga" %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container" id="bundesligaTable" style="display: block;">
+     <img src="https://dailytrust.com/wp-content/uploads/2020/05/Bundesliga.png" alt="Bundesliga Logo" class="league-image">
+    <h1>German Bundesliga 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#bundesliga-home">Table</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu1">Coaches</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu2">Media</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu3">Stadiums</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="bundesliga-home" class="tab-pane fade in active">
+                <table>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class="common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[20:38] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" width="25px" height="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays[:2] }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="bundesliga-menu1" class="tab-pane fade">
+                <table class="coach-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in coaches[20:38] %}
+                    <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
+                        <td>{{ i.coach_name }}</td>
+
+                        <td>{{ i.club_name }}</td>
+                        <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div id="bundesliga-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[14].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Bundesliga" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            <div id="bundesliga-menu2" class="tab-pane fade">
+                <div class="row">
+                    {% for i in media[12:24] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.link }}" class="card-img-top" alt="Media Image">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="bundesliga-menu3" class="tab-pane fade">
+                <div class="row">
+                    {% for i in stadium[20:38] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
+                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
+                            <p>{{i.name}}</p>
+                            <p>{{i.capacity}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+                <div id="bundesliga-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players if player.league_name == "Bundesliga" %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container" id="ligue1Table" style="display: block;">
+    <img src="https://logospng.org/download/ligue-1/ligue-1-768.png" alt="Ligue 1 Logo" class="league-image">
+    <h1>French Ligue 1 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#ligue1-home">Table</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu1">Coaches</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu2">Media</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu3">Stadiums</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="ligue1-home" class="tab-pane fade in active">
+                <table>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class="common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[38:56] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src=" {{ a.imageurl }}" width="25px" height="25px"> </td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays[:2] }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="ligue1-menu1" class="tab-pane fade">
+
+               <table class="coach-table">
+                <thead>
+                 <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in coaches[38:56] %}
+                    <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
+                        <td>{{ i.coach_name }}</td>
+
+                        <td>{{ i.club_name }}</td>
+                        <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+<div id="ligue1-menu5" class="tab-pane fade">
+    <table class="coach-table">
+        <thead>
+            <tr>
+                <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[24].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
+            </tr>
+        </thead>
+        <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Ligue 1" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+    </table>
+</div>
+            <div id="ligue1-menu2" class="tab-pane fade">
+
+                <div class="row">
+                    {% for i in media[24:36] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.link }}" class="card-img-top" alt="Media Image">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="ligue1-menu3" class="tab-pane fade">
+                <div class="row">
+                    {% for i in stadium[38:56] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
+                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
+                            <p>{{i.name}}</p>
+                            <p>{{i.capacity}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="ligue1-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players if player.league_name == "Ligue 1" %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container" id="serieaTable" style="display: block;">
+    <img src="https://logospng.org/download/serie-a-tim/serie-a-tim-768.png" alt="Serie A Logo" class="league-image">
+    <h1>Italian Serie A 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#seriea-home">Table</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu1">Coaches</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu2">Media</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu3">Stadiums</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="seriea-home" class="tab-pane fade in active">
+
+                <table>
+                <tr>
+                    <th class="common-cell position-header">#</th>
+                    <th class= "common-cell">Logo</th>
+                    <th class="common-cell club-header">Club</th>
+                    <th class="common-cell">P</th>
+                    <th class="common-cell">W</th>
+                    <th class="common-cell">D</th>
+                    <th class="common-cell">L</th>
+                    <th class="common-cell gs-header">GS</th>
+                    <th class="common-cell gc-header">GC</th>
+                    <th class="common-cell gd-header">GD</th>
+                    <th class="common-cell points-header">Points</th>
+                </tr>
+                {% for a in league_table[56:76] %}
+                <tr>
+                    <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                    <td class="common-cell"><img src=" {{ a.imageurl }}" width="25px" height="25px"> </td>
+                    <td class="common-cell">{{ a.club }}</td>
+                    <td class="common-cell">{{ a.plays[:2] }}</td>
+                    <td class="common-cell">{{ a.wins }}</td>
+                    <td class="common-cell">{{ a.draws }}</td>
+                    <td class="common-cell">{{ a.losses }}</td>
+                    <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                    <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                    <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                    <td class="common-cell points-header">{{ a.points }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+            <div id="seriea-menu1" class="tab-pane fade">
+
+                <table class="coach-table">
+                <thead>
+                 <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in coaches[56:76] %}
+                    <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
+                        <td>{{ i.coach_name }}</td>
+
+                        <td>{{ i.club_name }}</td>
+                        <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+             <div id="seriea-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                           <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[33].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Serie A" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            <div id="seriea-menu2" class="tab-pane fade">
+
+                <div class="row">
+                    {% for i in media[36:48] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.link }}" class="card-img-top" alt="Media Image">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="seriea-menu3" class="tab-pane fade">
+                <div class="row">
+                    {% for i in stadium[56:76] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
+                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
+                            <p>{{i.name}}</p>
+                            <p>{{i.capacity}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="seriea-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players if player.league_name == "Serie A" %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container" id="premierleagueTable" style="display: block;">
+    <img src="https://1.bp.blogspot.com/-GsXX3p7KkbI/YLUwmAwbxoI/AAAAAAAAUbE/d0PVC3Jj09A9VGhXeYtA7Wd2IFJqwZMMgCLcBGAsYHQ/s664/Premier%2BLeague.png"
+    alt="Premier League Logo" class="league-image">
+    <h1>English Premier League 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#premierleague-home">Table</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu1">Coaches</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu2">Media</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu3">Stadiums</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="premierleague-home" class="tab-pane fade in active">
+
+                   <table>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class= "common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[76:96] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{ a.imageurl }}" width="25px" height="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays[:2] }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="premierleague-menu1" class="tab-pane fade">
+
+                <table class="coach-table">
+                <thead>
+                 <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
+                 </tr>
+                </thead>
+                <tbody>
+                    {% for i in coaches[76:96] %}
+                    <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
+                        <td>{{ i.coach_name }}</td>
+                        <td>{{ i.club_name }}</td>
+                        <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+             <div id="premierleague-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[44].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Premier League" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            <div id="premierleague-menu2" class="tab-pane fade">
+
+                <div class="row">
+                    {% for i in media[48:60] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.link }}" class="card-img-top" alt="Media Image">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="premierleague-menu3" class="tab-pane fade">
+                <div class="row">
+                    {% for i in stadium[76:96] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
+                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
+                            <p>{{i.name}}</p>
+                            <p>{{i.capacity}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="premierleague-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players if player.league_name == "Premier League" %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-container" id="championsTable" style="display: block;">
+    <img src="https://seeklogo.com/images/U/UEFA_Champions_League-logo-DD9AE0500D-seeklogo.com.png" alt="champions Logo" class="league-image">
+    <h1>Champions League 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#champions-home">Table</a></li>
+            <li><a data-toggle="tab" href="#champions-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#champions-menu4">Stats</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="champions-home" class="tab-pane fade in active">
+                   <table>
+                       <h4>Group A</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[96:100] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays}}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group B</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[100:104] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group C</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[104:108] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group D</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[108:112] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group E</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[112:116] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group F</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[116:120] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group G</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[120:124] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group H</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[124:128] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+           <div id="champions-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+<!--                            <th>W Odds</th>-->
+                            <th>Home Team</th>
+                            <th>{{ matchday[55].matchweek }}</th>
+                            <th>Away Team</th>
+<!--                            <th>W Odds</th>-->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Champions League" %}
+                                <tr>
+<!--                                     <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%-->
+                                </td>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+<!--                                    <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>-->
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        <div id="champions-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players_new[0:15] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container" id="europeTable" style="display: block;">
+    <img src="https://cdn.resfu.com/media/img/league_logos/eleague.png?size=120x&lossy=1" alt="champions Logo" class="league-image">
+    <h1>Europa League 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#europe-home">Table</a></li>
+            <li><a data-toggle="tab" href="#europe-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#europe-menu4">Stats</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="europe-home" class="tab-pane fade in active">
+                   <table>
+                       <h4>Group A</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[128:132] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group B</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[132:136] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group C</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[136:140] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group D</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[140:144] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group E</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[144:148] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group F</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[148:152] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group G</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[152:156] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group H</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[156:160] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+           <div id="europe-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+<!--                            <th>W Odds</th>-->
+                            <th>Home Team</th>
+                            <th>{{ matchday[71].matchweek }}</th>
+                            <th>Away Team</th>
+<!--                            <th>W Odds</th>-->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Europa League" %}
+                                <tr>
+<!--                                     <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%-->
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+<!--                                    <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>-->
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+            <div id="europe-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players_new[15:30] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    showTable('premierleagueTable');
+
+    function showTable(tableId) {
+        // Hide all tables
+        const tables = document.querySelectorAll('.table-container');
+        tables.forEach(table => {
+            table.style.display = 'none';
+        });
+
+        // Show the selected table
+        const selectedTable = document.getElementById(tableId);
+        if (selectedTable) {
+            selectedTable.style.display = 'block';
+        }
+    }
+</script>
+{% include "footer.html" %}

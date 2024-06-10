@@ -1,0 +1,61 @@
+form {
+  text-align: center;
+  margin: 20px 0; /* Add margin for spacing */
+}
+
+.subbanner {
+  background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+  background-size: cover;
+  background-position: center;
+  color: #fff; /* Text color */
+  text-align: right;
+  padding: 0px 0; /* Adjust the padding as needed */
+}
+
+.caption {
+    font-size: 36px; /* Adjust the font size as needed */
+    /* background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
+    padding: 10px; /* Add padding to the text */
+}
+
+/* Style the label */
+form label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px; /* Add space between label and input */
+}
+
+/* Style the input field */
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+    /* Style the input field */
+input[type="text"] {
+        flex: 1; /* Allow the input to grow and take available space */
+        margin-right: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the submit button */
+button[type="submit"] {
+        background-color: #338766; /* Change the background color to your preference */
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+thead tr{
+  background-color: #333;
+}

@@ -1,0 +1,286 @@
+/* Style the common table styles */
+.table, .table th, .table td {
+    margin: 0;
+    padding: 0;
+}
+
+.table {
+    font-size: 18px;
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 6px;
+    border: 1px solid #757a79;
+    background-color: #fff;
+}
+
+.table th {
+    background-color: #222831;
+    color: white;
+    text-align: left;
+    padding: 10px;
+
+}
+
+.table tr {
+    border-bottom: 1px solid #c1c0b9;
+}
+
+.table td {
+    padding: 10px;
+    border: 1px solid #c1c0b9;
+    width: 32%;
+}
+
+/* Style the league logo */
+.league-logo {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* To maintain the aspect ratio */
+    margin-right: 5px; /* Add some spacing between the flag and the league name */
+    display: inline; /* Display the logo and name next to each other */
+}
+
+
+/* Style the common text alignment for home team, score, and away team */
+.team-cell {
+    text-align: center;
+    padding: 0;
+    border: none;
+}
+
+/* Style the common league title */
+.league-title {
+    text-align: left !important;
+    background-color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 2px solid #000;
+}
+
+/* Style the home team logo */
+.team-cell.home-team img {
+    max-width: 30px;
+    max-height: 30px;
+    vertical-align: middle;
+}
+
+/* Style the home team text */
+.team-cell.home-team {
+    font-size: 20px;
+    text-align: right;
+    padding-right: 10px;
+    vertical-align: middle;
+    background-color: white;
+}
+
+/* Style the score column */
+.team-cell.score {
+    font-size: 20px;
+    text-align: center;
+    padding-right: 10px;
+    font-weight: bold;
+    width: 15%;
+    background-color: white;
+}
+
+/* Style the away team logo */
+.team-cell.away-team img {
+    max-width: 30px;
+    max-height: 30px;
+    vertical-align: middle;
+}
+
+/* Style the away team text */
+.team-cell.away-team {
+    font-size: 20px;
+    text-align: left;
+    padding-left: 10px;
+    vertical-align: middle;
+    background-color: white;
+}
+.status{
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Style the form container */
+.form-container {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    length: 50px;
+
+}
+
+/* Style the form label */
+.form-label {
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #222831;
+}
+
+/* Style the date input */
+.date-input {
+    width: 10%;
+    padding: 2px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    border: 2px solid #333;
+    border-radius: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+/* Style the submit button */
+.submit-button {
+    min-width: 88px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 5px;
+    z-index: 0;
+    overflow: hidden;
+    background: #fff;
+    background-color: #338766;
+
+    font-size: 18px;
+    border: none;
+
+
+
+}
+
+/* Style the submit button on hover */
+.submit-button:hover {
+    background-color: #338766;
+}
+
+/* Reset margin and padding for the table and its cells */
+/* Reset margin and padding for the table and its cells */
+/* Style the common table styles */
+/* Add these styles to your CSS */
+.red-text {
+    color: red;
+}
+.container{
+    padding-bottom: 40px;
+    width:1000px;
+    margin-left: 200px;
+}
+#dateSelectionForm {
+    margin-right: 353px;
+}
+.recent-highlights {
+    float: right;
+    width: 25%;
+    padding: 10px;
+    margin-top: -22px;
+
+
+}
+
+/* Style for each highlight item */
+.highlight-item {
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+/* Style for the highlight title and link */
+.highlight-title {
+    font-weight: bold;
+}
+
+/* Style for the Recent Highlights table */
+.content-top-right {
+    float: right;
+    width: fit-content;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 10px;
+}
+.hg-border {
+    margin-top: 14px;
+    background: #222831;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:12px ;
+    height: 43px;
+}
+
+a:hover {
+    color: white;
+}
+a {
+  color: #white;
+  text-decoration: none;
+}
+
+/* Style for the table header */
+.recent-highlights h3 {
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.
+
+/* Style for each table row (highlight item) */
+.highlight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+
+}
+
+/* Style for the highlight link */
+.highlight-item a {
+    text-decoration: none;
+    color: #222831;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Style for the highlight link on hover */
+.highlight-item a:hover {
+    color: #338766;
+}
+
+.tablehead {
+    background: #338766;
+}
+
+.hg-border-1{
+margin-top: 14px;
+    background: #222831;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    height: 43px;
+    width: 205px;
+}
+
+.col-mdff-6{
+    width: 25%;
+    margin-left: -205px;
+}

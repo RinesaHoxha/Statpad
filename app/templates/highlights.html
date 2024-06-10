@@ -1,0 +1,71 @@
+{% include "header.html" %}
+
+<!-- NAVBAR SECTION -->
+{% include "navbar.html" %}
+
+<script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../static/css/highlights.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+<!-- BANNER -->
+<div class="section subbanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="caption">Football Highlights</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/highlights/view" method="get" style="text-align: center;">
+    <input type="text" name="q" placeholder="Search Highlights" style="width: 700px; padding: 5px; font-size: 16px;">
+    <button type="submit">Search</button>
+</form>
+
+<!-- YOUR CODE -->
+<div class="container">
+    <div class="row">
+        {% for i in hg %}
+            <div class="col-md-4">
+                <div class="highlight-box">
+                    <a href="{{ url_for('highlight_detail', video_id=i.match_name) }}">
+                        <iframe width="100%" height="315" src="{{ i.video_link }}" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="card-body">
+                             <a href="{{ url_for('highlight_detail', video_id=i.match_name) }}">
+                                <h5 class="card-title">{{ i.match_name }}</h5>
+                            </a>
+                            <p class="card-text">{{ i.competition }}</p>
+                            <p class="card-text">{{ i.date }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Pagination -->
+<ul class="pagination" style="margin-left: 50px">
+    {% if current_page > 1 %}
+        <li><a href="?page={{ current_page - 1 }}">Previous</a></li>
+    {% endif %}
+
+    {% for page_number in page_numbers %}
+        {% if current_page - 2 <= page_number <= current_page + 2 %}
+            {% if page_number == current_page %}
+                <li class="active"><a href="#">{{ page_number }}</a></li>
+            {% else %}
+                <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page < total_pages %}
+        <li><a href="?page={{ current_page + 1 }}">Next</a></li>
+    {% endif %}
+</ul>
+
+{% include "footer.html" %}

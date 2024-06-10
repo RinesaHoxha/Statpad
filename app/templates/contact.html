@@ -1,0 +1,243 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="../static/css/bets.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+<style>
+	#email{
+		width: 100%;
+	}
+* {
+	margin:0px;
+	padding:0px;
+}
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing: border-box; }
+
+.clearfix:before, .clearfix:after { display: table; content: ''; }
+.clearfix:after { clear: both; }
+
+
+body {
+	background: #ffffff;
+	color: #333;
+	font-weight: normal;
+	font-size: 1em;
+	font-family: 'Roboto', Arial, sans-serif;
+}
+
+input:focus, textarea:focus, keygen:focus, select:focus {
+	outline: none;
+}
+::-moz-placeholder {
+	color: #666;
+	font-weight: 300;
+	opacity: 1;
+}
+
+::-webkit-input-placeholder {
+	color: #666;
+	font-weight: 300;
+}
+
+
+/* Contact Form Styling */
+.container {
+	padding: 0 50px 70px;
+}
+.textcenter {
+	text-align: center;
+}
+.section1 {
+	text-align: center;
+	display: table;
+	width: 100%;
+}
+.section1 .shtext {
+	display: block;
+	margin-top: 20px;
+}
+.section1 .seperator {
+	border-bottom:1px solid #a2a2a2;
+	width: 35px;
+	display: inline-block;
+	margin: 20px;
+}
+
+.section1 h1 {
+	font-size: 40px;
+	color: #A44DD8;
+	font-weight: normal;
+}
+
+.section2 {
+    width: 1200px;
+    margin: 25px auto;
+}
+.section2 .col2 {
+	width: 48.71%;
+}
+.section2 .col2.first {
+	float: left;
+}
+.section2 .col2.last {
+	float: right;
+}
+.section2 .col2.column2 {
+	padding: 0 30px;
+}
+.section2 span.collig {
+	color: #a2a2a2;
+	margin-right: 10px;
+	display: inline-block;
+}
+.section2 .sec2addr {
+	display: block;
+	line-height: 26px;
+}
+.section2 .sec2addr p:first-child {
+	margin-bottom: 10px;
+}
+.section2 .sec2contactform input[type="text"],
+.section2 .sec2contactform input[type="email"],
+.section2 .sec2contactform textarea {
+    padding: 18px;
+    border: 0;
+    background: #EDEDED;
+    margin: 7px 0;
+}
+.section2 .sec2contactform textarea {
+	width: 100%;
+	display: block;
+	color: #666;
+  resize:none;
+}
+.section2 .sec2contactform input[type="submit"] {
+	padding: 15px 40px;
+    color: #fff;
+    border: 0;
+    background: #338766;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 7px 0;
+    cursor: pointer;
+}
+.section2 .sec2contactform h3 {
+	font-weight: normal;
+    margin: 20px 0;
+    margin-top: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 19px;
+    color: #338766;
+}
+
+/* @media querries */
+
+@media only screen and (max-width: 1266px) {
+	.section2 {
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 960px) {
+	.container {
+		padding: 0 30px 70px;
+	}
+	.section2 .col2 {
+		width: 100%;
+		display: block;
+	}
+	.section2 .col2.first {
+		margin-bottom: 10px;
+	}
+	.section2 .col2.column2 {
+		padding: 0;
+	}
+	body .sec2map {
+		height: 250px !important;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.section2 .sec2addr {
+		font-size: 14px;
+	}
+	.section2 .sec2contactform h3 {
+		font-size: 16px;
+	}
+	.section2 .sec2contactform input[type="text"], .section2 .sec2contactform input[type="email"], .section2 .sec2contactform textarea {
+		padding: 10px;
+		margin:3px 0;
+	}
+	.section2 .sec2contactform input[type="submit"] {
+		padding: 10px 30px;
+		font-size: 14px;
+	}
+}
+@media only screen and (max-width: 420px) {
+	.section1 h1 {
+		font-size: 28px;
+	}
+}</style>
+	<!-- NAVBAR SECTION -->
+
+	<!-- BANNER -->
+	<div class="section subbanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="caption">Contact us</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="container" style="margin-top: 25px">
+		<div class="innerwrap">
+
+			<section class="section1 clearfix">
+				<div class="textcenter">
+					<h1 style="color: #338766"></h1>
+				</div>
+			</section>
+
+			<section class="section2 clearfix">
+				<div class="col2 column1 first">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.134060579597!2d21.15330427582777!3d42.65851441619433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13549f265f06fd05%3A0x63d7962d6ccc4547!2sStarLabs!5e0!3m2!1sen!2s!4v1701433494482!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+				<div class="col2 column2 last">
+					<div class="sec2innercont">
+						<div class="sec2addr">
+						</div>
+					</div>
+					<div class="sec2contactform">
+                    <h3 class="sec2frmtitle">Want to Know More?? Drop Us a Mail</h3>
+                    <form action="../contact/submit" method="post">
+                        <div class="clearfix">
+							<input class="col-md-1 first" name="name" type="text" placeholder="FullName">
+							{% if error_details %}
+								<p>{{ error_details.detail }}</p>
+							{% endif %}
+						</div>
+						<div class="clearfix">
+							<input class="col-lg-1 first" id='email' name="emailAddress" type="email" placeholder="Email">
+						</div>
+						<div class="clearfix">
+							<textarea name="message"  id="" cols="30" rows="7" placeholder="Your message here..."></textarea>
+						</div>
+						<div class="clearfix">
+							<input type="submit" value="Send">
+						</div>
+						{% if success_message %}
+							<p>{{ success_message }}</p>
+						{% endif %}
+					</form>
+					</div>
+				</div>
+			</section>
+
+		</div>
+	</div>
+
+
+{% include "footer.html" %}

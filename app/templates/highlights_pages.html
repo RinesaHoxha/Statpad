@@ -1,0 +1,70 @@
+{% include "header.html" %}
+{% include "navbar.html" %}
+<link rel="stylesheet" type="text/css" href="../static/css/highlights_pages.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+<style>
+    .col-md-4 {
+        width: 100%;
+    }
+</style>
+
+<div class="section subbanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                {% for game in hg %}
+                    <div class="caption">
+                        <a>{{ game.match_name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="recent-highlights">
+    {% for hg_game in hg %}
+        <div>
+            <a href="{{ url_for('highlights_view') }}" class="hg-border">
+                <h3>More {{ hg_game.competition }} Games</h3>
+            </a>
+        </div>
+        {% set competition_games = [] %}
+        {% for game in highlights|reverse %}
+            {% if game.competition == hg_game.competition and competition_games|length < 5 and game.match_name not in hg|map(attribute='match_name') %}
+                {% set _ = competition_games.append(game) %}
+            {% endif %}
+        {% endfor %}
+        {% for game in competition_games|reverse %}
+            <div class="recent-highlight-item">
+                <a href="{{ url_for('highlight_detail', video_id=game.match_name) }}">{{ game.match_name }}</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <a href="{{ url_for('highlights_view') }}" class="hg-border">
+        <h3>Go Back</h3>
+    </a>
+</div>
+
+<div class="hg-container">
+    {% for game in hg %}
+        <div class="highlight-box">
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="{{ game.video_link }}" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="hg-banner">
+                        <div class="hg-data">
+                            <h5 class="card-title">{{ game.match_name }}</h5>
+                            <p class="card-text">{{ game.competition }}</p>
+                            <p class="card-text">{{ game.date }}</p>
+                        </div>
+                     </div>
+                </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+
+{% include "footer.html" %}

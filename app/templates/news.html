@@ -1,0 +1,76 @@
+{% include "header.html" %}
+{% include "navbar.html" %}
+
+<script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/news.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+<!-- NAVBAR SECTION -->
+<!-- BANNER -->
+<div class="section subbanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="caption">Football News</div>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="/sportnews/view" method="get" style="text-align: center;">
+  		<input type="text" name="q" placeholder="Search News" style="width: 700px; padding: 5px; font-size: 16px;">
+		<button type="submit">Search</button>
+	</form>
+
+
+
+<div class="card-wrapper">
+    <div class="card-container">
+        {% for i in news %}
+        <div class="card">
+            <div class="image-wrapper">
+                <a class="image-link" href="">
+                    <img src='{{ i.image_url }}' alt='Beautiful woman face by Oleg Gekman on 500px.com'>
+                </a>
+                <p>{{i.dateposted}}</p>
+            </div>
+            <div class="text-box-wrapper">
+                <div class="text-box">
+                    <h1 class="heading">
+                        {{ i.title }}
+                    </h1>
+                    <p class="text">
+                        {{ i.context }}
+                    </p>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <a class="button" href="{{ i.url }}" target="_blank">
+                    Read more
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<ul class="pagination" style="margin-left: 50px">
+    {% if current_page > 1 %}
+        <li><a href="?page={{ current_page - 1 }}">Previous</a></li>
+    {% endif %}
+
+    {% for page_number in page_numbers %}
+        {% if current_page - 2 <= page_number <= current_page + 2 %}
+            {% if page_number == current_page %}
+                <li class="active"><a href="#">{{ page_number }}</a></li>
+            {% else %}
+                <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page < total_pages %}
+        <li><a href="?page={{ current_page + 1 }}">Next</a></li>
+    {% endif %}
+</ul>
+
+{% include "footer.html" %}

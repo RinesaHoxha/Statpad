@@ -1,0 +1,65 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="../static/css/bets.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+	<!-- NAVBAR SECTION -->
+
+	<!-- BANNER -->
+	<div class="section subbanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="caption">Football Bets</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<form action="/bets/view" method="get" style="text-align: center;">
+  		<input type="text" name="q" placeholder="Search Bets" style="width: 700px; padding: 5px; font-size: 16px;">
+		<button type="submit">Search</button>
+	</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>League</th>
+            <th>Date</th>
+            <th>Home</th>
+            <th>Away</th>
+            <th>1</th>
+            <th>X</th>
+            <th>2</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bet in bets %}
+        <tr>
+            <td>{{ bet.liga }}</td>
+            <td>{{ bet.date }}</td>
+            <td>{{ bet.team1 }}</td>
+            <td>{{ bet.team2 }}</td>
+            <td>{{ bet.odds_1 }}</td>
+            <td>{{ bet.odds_x }}</td>
+            <td>{{ bet.odds_2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<ul class="pagination" style="margin-left: 3%">
+    {% for page_number in page_numbers %}
+        {% if page_number == current_page %}
+            <li class="active"><a href="#">{{ page_number }}</a></li>
+        {% else %}
+            <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+
+{% include "footer.html" %}

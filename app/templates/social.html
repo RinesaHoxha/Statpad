@@ -1,0 +1,544 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+	<script type='text/javascript' src='https://maps.google.com/maps/api/js?sensor=false&ver=4.1.5'></script>
+	<script type='text/javascript' src='../static/js/jqBootstrapValidation.js'></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap-hover-dropdown.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.magnific-popup.min.js"></script>
+
+	<script type="text/javascript" src="../static/js/script.js"></script>
+
+
+ <div class="container">
+    <h1>STATPAD SOCIAL</h1>
+    <div class="input-section" id="post-form">
+      <textarea id="post-content" placeholder="Share your thoughts" style="height: 250px; width: 75%;"></textarea>
+      <button onclick="createPost()">Create Post</button>
+    </div>
+    <div class="input-section" id="search-bar">
+      <input type="text" id="search-criteria" placeholder="Search by keyword" style="height: 40px; margin: 0px; padding:23px;">
+      <button onclick="searchPosts()">Search</button>
+    </div>
+    <div class="posts" id="posts">
+      <!-- Posts will be displayed here -->
+    </div>
+  </div>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+body {
+      font-family: 'Poppins', sans-serif;
+    text-align: center;
+    color: #1f2029;
+    background-color: ghostwhite;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+	background-color: ghostwhite;
+    color: #1f2029;
+  max-width: 800px;
+  margin: 20px auto;
+        margin-top: 120px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+  font-size: 24px;
+    font-weight: bold;
+}
+
+.input-section {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+
+input[type="text"] {
+  width: 60%;
+  padding: 12px;
+    height: auto;
+    min-height: 50px;
+  border-radius: 30px;
+    	background-color: #c4c3ca45;
+    color: #26273;
+    resize: vertical;
+    font-family: 'Poppins', sans-serif;
+    margin: 15px;
+
+}
+textarea {
+  width: 75%;
+  padding: 23px;
+  border-radius: 30px;
+      background-color: #c4c3ca45;
+    color: #262731;
+  resize: vertical;
+  overflow-y: auto;
+  max-height: 500px;
+  word-wrap: break-word;
+    font-family: 'Poppins', sans-serif;
+}
+.slider {
+  width: 100%; /* Match the width of the textarea */
+  transform: rotate(90deg);
+  transform-origin: right top;
+  position: relative;
+  top: 0;
+  appearance: none;
+  background: #c4c3ca;
+  border: none;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  border-radius: 30px;
+}
+
+
+
+button {
+      padding: 10px 20px;
+        background-color: #338766;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    height: 40px;
+    font-family: 'Poppins', sans-serif;
+    color: ghostwhite;
+}
+
+button:hover {
+  background-color: #338766;
+  color: #ffeba7;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+button:active,
+button:focus{
+  background-color: #338766;
+  color: #102770;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+
+.posts {
+
+  padding: 20px;
+  margin: 50px 0;
+  border-radius: 10px;
+	    background-color: #c4c3ca45;
+    color: #1f2029;
+}
+
+/* CSS for Reddit-style post cards */
+.post {
+  border-radius: 5px;
+  margin: 60px 0;
+  padding: 30px;
+    display: flex;
+    flex-direction: column;
+	color: #1f2029;
+	background-color: ghostwhite;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.user-info {
+  margin-bottom: 10px;
+  font-size: 16px;
+    text-align: left;
+    padding: 17px;
+color: #262732;
+    background-color: #c4c3ca45; /* Add a subtle background color */
+  border-radius: 5px; /* Add rounded corners for a modern look */
+}
+
+
+.user-info strong {
+  font-weight: bold;
+
+}
+
+.user-info .date {
+  font-style: italic;
+  font-size: 11px; /* Adjust the font size as needed */
+}
+
+
+.post-content {
+  font-size: 14px;
+        text-align: left;
+
+}
+
+.show-comments-button {
+      background-color: #338766;
+  color: ghostwhite;
+  border: none;
+  border-radius: 30px;
+  padding: 5px 20px;
+  cursor: pointer;
+    margin: 10px 250px;
+}
+
+.comment-button  {
+        background-color: #338766;
+  color: ghostwhite;
+    background: #338766;
+  border: none;
+  border-radius: 30px;
+  padding: 5px 20px;
+  cursor: pointer;
+    margin: 10px 250px;
+}
+
+.show-comments-button:hover {
+  background-color: #338766;
+}
+
+
+.comment {
+      border: 10px solid #c4c3ca45;
+    margin: 20px 50px;
+    padding: 10px;
+    border-radius: 10px;
+color: #262732;
+    background-color: ghostwhite;
+}
+
+.comments-container {
+  margin-top: 10px;
+}
+
+input[type="text"], button {
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, button:focus {
+  border-color: #1da1f2;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.comment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+        margin: 20px 16px;
+}
+
+.comment-container input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+  padding: 22px;
+    width: 1000px;
+    height: 2px;
+}
+
+.comment-button {
+  padding: 8px 20px;
+}
+
+    </style>
+<script>
+// Function to create a new post
+function createPost() {
+  const postContent = document.getElementById("post-content").value;
+
+  // Check if the post content is not empty
+  if (!postContent.trim()) {
+    alert("Post content cannot be empty");
+    return;
+  }
+
+  // Get the authentication token from the cookies
+  const token = getCookie("Authorization");
+
+  if (!token) {
+    alert("Authentication token not found. Please log in.");
+    return;
+  }
+
+  // Make a POST request to your backend API to create a post
+  fetch("http://localhost:8080/api/create-post/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    },
+    body: JSON.stringify({ content: postContent }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("post-content").value = ""; // Clear the input field
+      fetchPosts(); // Refresh the posts
+    })
+    .catch(error => {
+      console.error("Error creating post:", error);
+      alert("Failed to create a post");
+    });
+}
+
+// ... (the rest of your JavaScript code)
+
+// Function to get a cookie by name
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+
+// Function to search for posts based on criteria
+function searchPosts() {
+  const criteria = document.getElementById("search-criteria").value;
+
+  // Make a GET request to your backend API to get posts by criteria
+  fetch(`http://localhost:8080/api/posts-by-criteria/?criteria=${criteria}`)
+    .then(response => response.json())
+    .then(data => displayPosts(data))
+    .catch(error => {
+      console.error("Error searching for posts:", error);
+      alert("Failed to search for posts");
+    });
+}
+
+// Function to get and display all posts
+function fetchPosts() {
+  fetch("http://localhost:8080/api/all-posts/")
+    .then(response => response.json())
+    .then(data => displayPosts(data))
+    .catch(error => {
+      console.error("Error fetching posts:", error);
+      alert("Failed to fetch posts");
+    });
+}
+function convertUTCToLocalTime(utcTimestamp) {
+  const userTimezoneOffset = new Date().getTimezoneOffset();
+  const utcDate = new Date(utcTimestamp);
+  return new Date(utcDate.getTime() - userTimezoneOffset * 60000);
+}
+
+const commentsState = {};
+
+// Function to toggle comments for a specific post
+function toggleComments(postId, postElement) {
+  if (commentsState[postId]) {
+    // Comments are currently open, so close them
+    commentsState[postId] = false;
+    // Remove the comments container
+    const commentsContainer = postElement.querySelector('.comments-container');
+    if (commentsContainer) {
+      commentsContainer.remove();
+    }
+  } else {
+    // Comments are currently closed, so open them
+    commentsState[postId] = true;
+    // Fetch and display comments for the post
+    getComments(postId, postElement);
+  }
+}
+
+function displayPosts(data) {
+  const postsDiv = document.getElementById("posts");
+  postsDiv.innerHTML = "";
+
+  if (Array.isArray(data)) {
+    data.reverse().forEach(post => {
+      // Create a div for the post card
+      const postElement = document.createElement("div");
+      postElement.classList.add("post");
+
+      // Create a div for the user information (username, favorite team, and created_at)
+      const userDiv = document.createElement("div");
+      userDiv.classList.add("user-info");
+
+      // Fetch user information for the post's author by user ID
+      fetch(`http://localhost:8080/api/user-profile/${post.user_id}`)
+        .then(response => response.json())
+        .then(user => {
+          // Format the created_at date and time
+          const createdAt = convertUTCToLocalTime(post.created_at);
+          const formattedDate = createdAt.toLocaleDateString();
+          const formattedTime = createdAt.toLocaleTimeString().replace(/:\d+\s/, ' ');
+
+          userDiv.innerHTML = `<strong>${user.username}</strong> <em>(${user.favorite_team} fan)</em> - <span class="date">${formattedDate}, ${formattedTime}</span>`;
+          postElement.appendChild(userDiv); // Append user information to the post card
+
+          // Create a div for the post content
+          const contentDiv = document.createElement("div");
+          contentDiv.classList.add("post-content");
+          contentDiv.innerHTML = post.content;
+          postElement.appendChild(contentDiv); // Append post content to the post card
+
+          // Create a button to fetch comments for this post
+          const commentsButton = document.createElement("button");
+          commentsButton.classList.add("show-comments-button");
+          commentsButton.textContent = " All Comments";
+          commentsButton.onclick = () => toggleComments(post.id, postElement);
+
+          const commentContainer = document.createElement("div");
+            commentContainer.classList.add("comment-container");
+            postElement.appendChild(commentContainer);
+
+            // Create a comment input
+            const commentInput = document.createElement("input");
+            commentInput.setAttribute("type", "text");
+            commentInput.setAttribute("placeholder", "Add a comment");
+            commentContainer.appendChild(commentInput);
+
+            // Create a button to submit the comment
+            const commentButton = document.createElement("button");
+            commentButton.classList.add("comment-button");
+            commentButton.textContent = "Comment";
+            commentButton.onclick = () => createComment(post.id, commentInput, postElement);
+            commentContainer.appendChild(commentButton);
+
+          // Append the comments button to the post card
+          postElement.appendChild(commentsButton);
+
+          // Append the post card to the posts container
+          postsDiv.appendChild(postElement);
+        })
+        .catch(error => {
+          console.error("Error fetching user information:", error);
+          alert("Failed to fetch user information");
+        });
+    });
+  } else {
+    // Handle the case where the response data is not an array
+    postsDiv.innerHTML = "No posts found.";
+  }
+}
+
+function createComment(postId, commentInput, postElement) {
+  const commentContent = commentInput.value;
+
+  if (!commentContent.trim()) {
+    alert("Comment content cannot be empty");
+    return;
+  }
+
+  const token = getCookie("Authorization");
+
+  if (!token) {
+    alert("Authentication token not found. Please log in.");
+    return;
+  }
+
+  fetch(`http://localhost:8080/api/create-comment/${postId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    },
+    body: JSON.stringify({ content: commentContent }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      commentInput.value = "";
+      getComments(postId, postElement);
+    })
+    .catch(error => {
+      console.error("Error creating comment:", error);
+      alert("Failed to create a comment");
+    });
+}
+
+
+
+// Function to get comments for a specific post
+function getComments(postId, postElement) {
+  // Make a GET request to your backend API to get comments for the post
+  fetch(`http://localhost:8080/api/post-comments/${postId}`)
+    .then(response => response.json())
+    .then(data => displayComments(data, postElement))
+    .catch(error => {
+      console.error("Error fetching comments:", error);
+      alert("Failed to fetch comments");
+    });
+}
+
+// Function to display comments
+// Function to display comments
+function displayComments(comments, postElement) {
+  const commentsDiv = document.createElement("div");
+  commentsDiv.classList.add("comments-container");
+
+  shuffleArray(comments);
+
+  comments.forEach(comment => {
+    const commentElement = document.createElement("div");
+    commentElement.classList.add("comment");
+
+    // Fetch user information for the comment's author by user ID
+    fetch(`http://localhost:8080/api/user-profile/${comment.user_id}`)
+      .then(response => response.json())
+      .then(user => {
+        // Create a div for the user information (username and favorite team)
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("user-info");
+        const createdAt = convertUTCToLocalTime(comment.created_at);
+          const formattedDate = createdAt.toLocaleDateString();
+          const formattedTime = createdAt.toLocaleTimeString().replace(/:\d+\s/, ' ');
+
+          userDiv.innerHTML = `<strong>${user.username}</strong> <em>(${user.favorite_team} fan)</em> - <span class="date">${formattedDate}, ${formattedTime}</span>`;
+          postElement.appendChild(userDiv);
+
+        // Create a div for the comment content
+        const contentDiv = document.createElement("div");
+        contentDiv.classList.add("post-content");
+        contentDiv.textContent = comment.content;
+
+        // Append user information and comment content to the comment element
+        commentElement.appendChild(userDiv);
+        commentElement.appendChild(contentDiv);
+
+        // Append the comment element to the comments container
+        commentsDiv.appendChild(commentElement);
+      })
+      .catch(error => {
+        console.error("Error fetching user information for comment:", error);
+        alert("Failed to fetch user information for comment");
+      });
+  });
+
+  postElement.appendChild(commentsDiv);
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+
+// Fetch all posts when the page loads
+fetchPosts();
+
+</script>

@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.card-wrapper {
+    padding: 2%;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px; /* Add padding between cards */
+}
+
+.card {
+    width: calc(33.33% - 1em); /* Adjust the width for three cards */
+    background-color:  #dfdddd;
+    border: 1px solid #ccc; /* Add a border around the card */
+    border-radius: 8px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    box-shadow: 1px 2px 8px rgba(100, 100, 100, 0.1);
+}
+
+
+
+img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.text-box-wrapper {
+    padding: 20px;
+}
+
+.heading {
+    font-family: 'Playfair-Display';
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.heading::after {
+    content: '';
+    display: block;
+    margin-top: 0.5em;
+    width: 30px;
+    height: 5px;
+    background-color: black;
+}
+
+.text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+    padding-top: 10px;
+    line-height: 2;
+}
+
+.button {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-family: 'Poppins';
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.button:hover {
+    color: black;
+    transition: linear 0.2s;
+}
+
+form {
+        margin-top: 15px;
+        margin-left: 25%;
+        text-align: center;
+        max-width: 800px; /* Adjust the width as needed */
+        display: flex; /* Use flexbox layout */
+    }
+
+    /* Style the input field */
+input[type="text"] {
+        flex: 1; /* Allow the input to grow and take available space */
+        margin-right: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the submit button */
+button[type="submit"] {
+        background-color: #338766; /* Change the background color to your preference */
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }

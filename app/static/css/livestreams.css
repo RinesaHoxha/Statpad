@@ -1,0 +1,86 @@
+.section.singlepage{
+    /*background: rgb(56, 189, 140);*/
+    background-color: #fff;
+}
+tbody {
+    display: table-row-group;
+    border-color: inherit;
+    background: transparent;
+
+}
+th{
+    padding: 10px;
+    border-bottom: 1px solid #252525;
+    color: #FFFFF0;
+    font-size: 18px;
+
+    background:	#333;
+
+
+}
+table {
+    padding-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-width: 1px 0 0 1px;
+    width: 70%;
+    margin: 0 15%;
+    padding-right: 75px;
+
+
+}
+td {
+    text-align: left;
+    vertical-align: middle;
+    padding: 10px;
+
+    color: #000000; /* Dark Blue */
+    font-size: 18px;
+    border-bottom: 1px solid #333;
+
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+
+}
+.linkz{
+     /* Dark Blue */
+    font-size: 18px;
+    horiz-align: center;
+    display: inline-flex;
+    padding: 5px 10px;
+    background:#338766;
+    color: #FFFFF0;
+    border-radius: 10px; /* Adjust the value to control the roundness */
+    transition: background-color 0.3s;
+    cursor: pointer;
+    margin:3px 0;
+}
+a:hover {
+  color: #3fc323; /* Change this to the color you want when hovering */
+}
+.subbanner {
+  background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+  background-size: cover;
+  background-position: center;
+  color: #fff; /* Text color */
+  text-align: right;
+  padding: 0px 0; /* Adjust the padding as needed */
+}
+li{
+    text-align: center;
+}
+.timez{
+}
+.matchez{
+
+}
+.iframez{
+    border-bottom: 0px white;
+}
+.watchz{
+    text-align: center;
+}

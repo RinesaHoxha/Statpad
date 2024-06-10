@@ -1,0 +1,174 @@
+/* Center the video horizontally */
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh; /* Adjust the height as needed */
+  flex-direction: column;
+  background: black;
+}
+
+/* Set the video width to 70% */
+.video-container iframe {
+  width: 64.5%;
+  max-width: 100%; /* Ensure it doesn't exceed the container width */
+  height: 80%; /* Maintain aspect ratio */
+}
+
+
+
+.card-title, .card-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+    color: #fff1f1;
+    transition: color 0.1s;
+    text-align: center;
+    margin-left: 27px;
+}
+
+/* Change text color to #338766 on hover */
+.card-title:hover, .card-text:hover {
+  color: #338766;
+}
+.card-body {
+    text-align: center;
+    margin-top: -45px;
+    width: fit-content;
+    margin-left: 300px;
+    margin-bottom: 70px;
+}
+
+.card-title{
+font-size: 25px;
+}
+
+.highlight-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 50px;
+    margin-left: -150px;
+    margin-right: 290px;
+}
+
+
+
+
+.recent-highlights {
+    float: right;
+    width: 25%;
+    padding: 10px;
+    margin-top: 27px;
+
+
+}
+
+/* Style for each highlight item */
+.recent-highlight-item {
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+/* Style for the highlight title and link */
+.highlight-title {
+    font-weight: bold;
+}
+
+/* Style for the Recent Highlights table */
+.content-top-right {
+    float: right;
+    width: fit-content;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 10px;
+}
+.hg-border {
+    margin-top: 14px;
+    background: #222831;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:12px ;
+    height: 43px;
+}
+
+a:hover {
+    color: #338766;
+}
+a {
+  color: #white;
+  text-decoration: none;
+}
+
+/* Style for the table header */
+.recent-highlights h3 {
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.
+
+/* Style for each table row (highlight item) */
+.highlight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+
+}
+
+/* Style for the highlight link */
+.highlight-item a {
+    text-decoration: none;
+    color: #222831;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Style for the highlight link on hover */
+.highlight-item a:hover {
+    color: #338766;
+}
+
+.tablehead {
+    background: #338766;
+}
+
+.hg-container {
+    padding-right: 144px;
+    padding-left: 240px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.hg-banner {
+  padding: 15px;
+  width: -webkit-fill-available;
+  max-width: 100%;
+  background-image: url('https://static.vecteezy.com/system/resources/previews/009/000/164/non_2x/banner-of-soccer-ball-with-green-soccer-field-vector.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Other styles as needed */
+}
+
+.hg-banner .hg-data {
+  text-align: center;
+  /* Other styles for text container */
+}
+
+

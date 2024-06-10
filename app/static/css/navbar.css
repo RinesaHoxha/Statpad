@@ -1,0 +1,57 @@
+.navbar-main {
+    background: #338766;
+
+    padding-right: 40px;
+
+
+}
+.logo {
+width:100%;
+height:inherit;
+height: 64px;
+margin-top: 52px;
+-webkit-transition: inherit;
+
+}
+.navbar-main.stiky .navbar-brand > img {
+    width: 100%;
+    height: inherit;
+    margin-top: 5px;
+    -webkit-transition: inherit;
+    transition: none;
+ }
+
+.navbar-main .navbar-brand > img {
+    -webkit-transition: inherit;
+    transition: inherit;
+}
+
+
+.animationload {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    background: #338766;
+
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -100px;
+  width: 200px;
+  height: 200px;
+  background-image: url("../images/logoloader.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: spin 2s linear infinite;
+}

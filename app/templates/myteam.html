@@ -1,0 +1,256 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+<!--<link rel="stylesheet" type="text/css" href="../static/css/standings.css">-->
+<link rel="stylesheet" type="text/css" href="../static/css/myteam.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+	<!-- BANNER -->
+	<div class="section subbanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="caption">{{ favorite_team }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--    <div class="team-container">-->
+<!--        <section class="info-section">-->
+<!--            <div class="info-container">-->
+<!--                <h1>Predict Winner between Two Teams</h1>-->
+<!--    <form id="predictionForm">-->
+<!--        <label for="team1">Your Team:</label>-->
+<!--        <input id="team1" name="team1" required type="text" value="{{ favorite_team }}">-->
+
+<!--        <label for="team2">Opponent:</label>-->
+<!--        <input type="text" id="team2" name="team2" required><br><br>-->
+
+<!--        <input type="button" value="Predict Winner" onclick="predictWinner()">-->
+<!--    </form>-->
+
+<!--    <div id="predictionResult"></div>-->
+
+    <script>
+    function predictWinner(event) {
+        event.preventDefault();
+
+        const team1 = document.getElementById('team1').innerText;
+        const team2 = document.getElementById('team2').innerText;
+
+        fetch(`/predictions/predict_winner?team1=${team1}&team2=${team2}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('predictionResult').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+                <h1>  </h1>
+                <div class="grid">
+                    <div class="area-1">
+                        <div class="panel panel-1">
+                            <div class="panel-header">
+                                <h3 class="panel-title">LAST MATCH</h3>
+                            </div>
+                            <div class="panel-body">
+                                {%for match in last_match[:1]%}
+                                <h5 class="panel-body-text">{{match.league}}</h5>
+                                <div class="clubs-container">
+
+                                    <div class="club1">
+
+                                        <h5>{{match.h_name}}</h5>
+                                        <img src="{{ match.h_image }}" alt="{{ match.h_name }}">
+                                    </div>
+                                    <h3 class="score">{{match.result}}</h3>
+                                    <div class="club2">
+                                        <img src="{{ match.a_image }}" alt="{{ match.a_name }}">
+                                        <h5>{{match.a_name}}</h5>
+                                    </div>
+                                </div>
+                                <h5 class="panel-body-date">{{match.date}}</h5>
+                            </div>
+                            {%endfor%}
+                        </div>
+                        <div class="panel panel-3">
+                            <div class="panel-header">
+                                <h3 class="panel-title">LAST MATCH HIGHLIGHTS</h3>
+                            </div>
+                            <div class="panel-body">
+                                 {%for match in hg[:1]%}
+                                <h5 class="panel-body-text">{{match.competition}}</h5>
+                                <h3 class="panel-body-text">{{match.match_name}}</h3>
+                                <div class="clubs-container">
+                                    <iframe width="100%" height="315" src="{{ match.video_link }}" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                         <div class="panel panel-2">
+                            <div class="panel-header">
+                                <h3 class="panel-title">LEAGUE PERFORMANCE</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table>
+                                   <tr class="light-green">
+                                        <th class="table-num"></th>
+                                        <th class="matchday">Matchday</th>
+                                        <th>PTS</th>
+                                        <th>MP</th>
+                                        <th>W</th>
+                                        <th>D</th>
+                                        <th>L</th>
+                                        <th>GF</th>
+                                        <th>GA</th>
+                                        <th>GD</th>
+                                    </tr>
+                                    {%for i in league_table[:1]%}
+                                    <tr class="lighter-green">
+                                        <td class="table-num lime">{{i.position}}</td>
+                                        <td class="matchday"><img src="{{i.imageurl}}" alt="">{{i.club}}</td>
+                                        <td>{{i.points}}</td>
+                                        <td>{{i.plays[:2]}}</td>
+                                        <td>{{i.wins}}</td>
+                                        <td>{{i.draws}}</td>
+                                        <td>{{i.losses}}</td>
+                                        <td>{{i.goalsscored}}</td>
+                                        <td>{{ i.goalsconceded }}</td>
+                                        <td>{{ i.goaldifference }}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="area-2">
+                        <div class="panel panel-1">
+
+                            <div class="panel-header">
+                                <h3 class="panel-title">IN THEIR NEXT CLASH</h3>
+                                 <form id="predictionForm" action="javascript:void(0)">
+<!--                                        <input class="panel-title" type="button" value="Predict Winner" onclick="predictWinner(event)">-->
+                                    </form>
+                            </div>
+                            <div class="panel-body">
+                                {% for i in next_match[:1] %}
+                                <h5 class="panel-body-text">{{ i.league }}</h5>
+                                <div class="clubs-container">
+                                    <div class="club1">
+                                        <h5 id="team1">{{i.h_name}}</h5>
+                                         <img src="{{i.h_image }}" alt="{{ i.h_name }}">
+                                    </div>
+                                    <h3 class="score">{{i.result}}</h3>
+                                    <div class="club2">
+                                         <img src="{{ i.a_image }}" alt="{{ i.a_name }}">
+                                        <h5 id="team2">{{i.a_name}}</h5>
+                                    </div>
+                                </div>
+                                <h5 class="panel-body-date">{{i.date}}</h5>
+                                <button type="button" class="btn btn-primary" style="background-color: #338766;" onclick="predictWinner(event)">Predict Winner</button>
+                                <div id="predictionResult" style="font-weight: bold"></div>
+
+                                {%endfor%}
+                            </div>
+                        </div>
+                       <div class="panel panel-2">
+                            <div class="panel-header">
+                                <h3 class="panel-title">STADIUM</h3>
+                            </div>
+                            {% for i in stadiums %}
+                            <div class="panel-body">
+                                <img src="{{i.image}}" alt="" class="stadium-img">
+                                <div class="stadium-container">
+                                    <div class="stadium-text">
+                                        <h2>{{i.stadium_name}}</h2>
+                                        <h4>{{i.city}}</h4>
+                                        <h5>{{i.address}}</h5>
+                                    </div>
+                                    <div class="stadium-info">
+                                        <div class="date info-card">
+                                            <h5 class="grey">Date of construction</h5>
+                                            <h5>{{i.construction_date}}</h5>
+                                        </div>
+                                        <div class="capacity info-card">
+                                            <h5 class ="grey">Capacity</h5>
+                                            <h5>{{i.capacity}}</h5>
+                                        </div>
+                                        <div class="size info-card">
+                                            <h5 class="grey">Size</h5>
+                                            <h5>{{i.size}}</h5>
+                                        </div>
+                                        <div class="grass info-card">
+                                            <h5 class="grey">Type of grass</h5>
+                                            <h5>{{i.grass_type}}</h5>
+                                        </div>
+                                        <div class="phone info-card">
+                                            <h5 class="grey">Phone</h5>
+                                            <h5>{{i.phone}}</h5>
+                                        </div>
+                                        <div class="fax info-card">
+                                            <h5 class="grey">Fax</h5>
+                                            <h5>{{i.fax}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="area-3">
+                    <div class="panel panel-1">
+                        <div class="panel-header">
+                            <h3 class="panel-title">FORM IN LAST MATCHES</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-container">
+                                {% for form in forms %}
+                                    <div class="card{{ loop.index }} card {% if form.h_or_a == 'A' and form.home_scores < form.away_scores %}green{% elif form.h_or_a == 'H' and form.home_scores > form.away_scores %}green{% elif form.h_or_a == 'H' and form.home_scores < form.away_scores %}red{% elif form.h_or_a == 'A' and form.home_scores > form.away_scores %}red{% elif form.h_or_a in ['H', 'A'] and form.home_scores == form.away_scores %}yellow{% endif %}">
+                                        <div class="img-container">
+                                            <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">
+                                            <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">
+                                        </div>
+                                        {% if form.h_or_a == 'H' %}
+                                            <h3><strong><span class="home">{{ form.home_scores }}</span></strong>-<span class="away">{{ form.away_scores }}</span></h3>
+                                        {% else %}
+                                            <h3><span class="home">{{ form.home_scores }}</span>-<strong><span class="away">{{ form.away_scores }}</span></strong></h3>
+                                        {% endif %}
+                                        <h5>{{ form.h_or_a }}</h5>
+                                        <h5>{{ form.date }}</h5>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="panel panel-2">
+                            <div class="panel-header">
+                                <h3 class="panel-title">THE MOST REPEATED STARTING XI</h3>
+                            </div>
+                            <div class="panel-body">
+                                {%for i in lineup[:1]%}
+                                <p>Goalkeeper {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                {%for i in lineup[1:5]%}
+                                <p>Defender {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                {%for i in lineup[5:8]%}
+                                <p>Midfielder {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                {%for i in lineup[8:11]%}
+                                <p>Forward {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                <img src="./img/screenshot.png" alt="" class="screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+{% include "footer.html" %}

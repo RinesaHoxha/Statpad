@@ -1,0 +1,48 @@
+.subbanner {
+  background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+  background-size: cover;
+  background-position: center;
+  color: #FAEBD7; /* Text color */
+  text-align: right;
+  padding: 0px 0; /* Adjust the padding as needed */
+}
+body {
+  background-color: #fff; /* Set the desired background color (black in this case) */
+  color: #000; /* Set the text color to white for better visibility */
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0; /* Adjust margin for centering */
+    padding: 0; /* Remove padding */
+}
+
+.pagination li {
+    margin: 0 5px; /* Adjust spacing */
+}
+
+.pagination a {
+    padding: 8px 12px; /* Adjust size */
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .active a {
+    background: rgb(56, 189, 140);
+    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    color: #fff;
+}
+
+.pagination .active a:hover {
+    background: linear-gradient(0deg, rgba(56, 189, 140, 0.8) 0%, rgba(17, 112, 111, 0.8) 76%);
+}

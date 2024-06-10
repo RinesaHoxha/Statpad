@@ -1,0 +1,539 @@
+.table-head-container {
+    border-top:none ;
+    padding-top: 15px;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+    background-color: #3a0b58;
+
+}
+
+.subbanner {
+  background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+  background-size: cover;
+  background-position: center;
+  color: #fff; /* Text color */
+  text-align: right;
+  padding: 0px 0; /* Adjust the padding as needed */
+}
+
+
+h1{
+    color: black;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+/* Style the header and navbar (assuming they exist in the included files) */
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+
+/* Style the subbanner */
+
+.caption {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* Style the league links */
+.leagues {
+  text-align: center;
+  margin: 12px 0;
+  margin-bottom: -55px;
+  display: flex;
+  justify-content: center;
+}
+
+.ligtable {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  padding: 10px 20px;
+  border: 2px solid #333;
+  border-radius: 5px;
+}
+
+/* Style the league tables */
+.table-container {
+  display: none;
+    padding-bottom: 20px;
+    padding-left:275px;
+    width: fit-content;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border-bottom: inset;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+
+}
+
+
+th {
+     align-items: center;
+    background-color: black;
+    color: white;
+    font-size: 11px;
+    justify-content: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 5px 10px;
+}
+
+/* Add some hover effect for the league links */
+.ligtable:hover {
+    background-color: #a4a4a4;
+    color: black;
+    transition: 0.3s;
+}
+
+/* Footer styles (modify as needed) */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+}
+
+.league-image {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    margin: -16px;
+    margin-top: 60px;
+}
+
+.common-cell,
+.common-cell.pos,
+.common-cell.gs-header,
+.common-cell.gc-header,
+.common-cell.gd-header,
+.common-cell.points-header{
+    width: 32px;
+}
+.common-cell.club-header{
+    width: 736px;
+}
+
+.common-cell.position-header{
+width: 32px;
+}
+.a:hover, a:focus{
+text-decoration: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+}
+.common-cell.points-header{
+width: 20px;
+}
+#europeTable tr td.common-cell-rank[data-position="1"] ,
+#europeTable tr td.common-cell-rank[data-position="2"]{
+    background: rgb(0, 70, 130);
+    color: white;
+}
+#championsTable tr td.common-cell-rank[data-position="1"] ,
+#championsTable tr td.common-cell-rank[data-position="2"]{
+    background: rgb(0, 70, 130);
+    color: white;
+}
+#premierleagueTable tr td.common-cell-rank[data-position="1"],
+#premierleagueTable tr td.common-cell-rank[data-position="2"],
+#premierleagueTable tr td.common-cell-rank[data-position="3"],
+#premierleagueTable tr td.common-cell-rank[data-position="4"] {
+    background: rgb(0, 70, 130);
+    color: white;
+}
+#premierleagueTable tr td.common-cell-rank[data-position="5"] {
+    background: rgb(127, 0, 41);
+    color: white;
+}  /* Add this closing brace */
+
+#premierleagueTable tr td.common-cell-rank[data-position="18"],
+#premierleagueTable tr td.common-cell-rank[data-position="19"],
+#premierleagueTable tr td.common-cell-rank[data-position="20"] {
+    background: rgb(189, 0, 0);
+    color: white;
+}
+
+#ligue1Table tr td.common-cell-rank[data-position="1"],
+#ligue1Table tr td.common-cell-rank[data-position="2"],
+#ligue1Table tr td.common-cell-rank[data-position="3"] {
+    background: rgb(0, 70, 130);
+    color: white;
+}
+#ligue1Table tr td.common-cell-rank[data-position="4"] {
+    background-color: rgb(30, 168, 236);
+    color: white;
+}
+
+#ligue1Table tr td.common-cell-rank[data-position="5"] {
+    background: rgb(127, 0, 41);
+    color: white;
+}
+#ligue1Table tr td.common-cell-rank[data-position="6"] {
+    background-color: rgb(184, 134, 11);
+    color: white;
+}
+
+#ligue1Table tr td.common-cell-rank[data-position="16"] {
+    background-color: rgb(189, 0, 0);
+    color: white;
+}
+#ligue1Table tr td.common-cell-rank[data-position="17"],
+#ligue1Table tr td.common-cell-rank[data-position="18"] {
+    background-color: rgb(255, 65, 65);
+    color: white;
+}
+
+#laligaTable tr td.common-cell-rank[data-position="1"],
+#laligaTable tr td.common-cell-rank[data-position="2"],
+#laligaTable tr td.common-cell-rank[data-position="3"],
+#laligaTable tr td.common-cell-rank[data-position="4"] {
+    background: rgb(0, 70, 130);
+    color: white;
+}
+
+#laligaTable tr td.common-cell-rank[data-position="5"] {
+    background: rgb(127, 0, 41);
+    color: white;
+}
+
+#laligaTable tr td.common-cell-rank[data-position="6"] {
+    background-color: rgb(184, 134, 11);
+    color: white;
+}
+
+#laligaTable tr td.common-cell-rank[data-position="18"],
+#laligaTable tr td.common-cell-rank[data-position="19"],
+#laligaTable tr td.common-cell-rank[data-position="20"] {
+    background: rgb(189, 0, 0);
+    color: white;
+}
+
+#bundesligaTable tr td.common-cell-rank[data-position="1"],
+#bundesligaTable tr td.common-cell-rank[data-position="2"],
+#bundesligaTable tr td.common-cell-rank[data-position="3"],
+#bundesligaTable tr td.common-cell-rank[data-position="4"] {
+    background: rgb(0, 70, 130);
+    color: white;
+}
+
+#bundesligaTable tr td.common-cell-rank[data-position="5"] {
+    background: rgb(127, 0, 41);
+    color: white;
+}
+
+#bundesligaTable tr td.common-cell-rank[data-position="6"] {
+    background-color: rgb(184, 134, 11);
+    color: white;
+}
+
+#bundesligaTable tr td.common-cell-rank[data-position="16"] {
+    background: rgb(189, 0, 0);
+    color: white;
+}
+
+#bundesligaTable tr td.common-cell-rank[data-position="17"],
+#bundesligaTable tr td.common-cell-rank[data-position="18"] {
+    background-color: rgb(255, 65, 65);
+    color: white;
+}
+
+#serieaTable tr td.common-cell-rank[data-position="1"],
+#serieaTable tr td.common-cell-rank[data-position="2"],
+#serieaTable tr td.common-cell-rank[data-position="3"],
+#serieaTable tr td.common-cell-rank[data-position="4"] {
+    background: rgb(0, 70, 130);
+    color: white;
+}
+
+#serieaTable tr td.common-cell-rank[data-position="5"] {
+    background: rgb(127, 0, 41);
+    color: white;
+}
+
+#serieaTable tr td.common-cell-rank[data-position="6"] {
+    background-color: rgb(184, 134, 11);
+    color: white;
+}
+
+#serieaTable tr td.common-cell-rank[data-position="18"],
+#serieaTable tr td.common-cell-rank[data-position="19"],
+#serieaTable tr td.common-cell-rank[data-position="20"] {
+    background: rgb(189, 0, 0);
+    color: white;
+}
+
+.common-cell-rank{
+    align-items: center;
+    font-size: 14px;
+    height: 20px;
+    justify-content: center;
+    width: 20px;
+    font-weight: 700;
+
+}
+
+.tableLegend__row {
+    margin-top: 10px;
+
+    align-items: center;
+}
+
+.tableLegend__coloredSquare {
+    width: 10px; /* Adjust the width as needed for the square */
+    height: 10px; /* Adjust the height as needed for the square */
+    margin-right: 5px;
+}
+
+.champions-league-color {
+    background-color: rgb(0, 70, 130); /* Blue color for Champions League */
+}
+
+.europa-league-color {
+    background-color: rgb(127, 0, 41); /* Define the color for Europa League */
+}
+
+.championship-color {
+    background-color: rgb(189, 0, 0); /* Define the color for Championship */
+}
+
+#laligaTable th {
+    background-color: #e44040;
+    color: white;
+    padding: 9px 10px;
+}
+#serieaTable th {
+background-color: #6767f0;
+padding: 9px 10px;
+}
+
+#premierleagueTable th {
+    background-color: #161c4b;
+    padding: 9px 10px;
+}
+#championsTable th {
+    background-color: #2f3031;
+    padding: 9px 10px;
+}
+#europeTable th {
+    background-color: #e7803b;
+    padding: 9px 10px;
+}
+
+#bundesligaTable th {
+background-color: #dc2525;
+padding: 9px 10px;
+}
+
+#ligue1Table th {
+    background-color: #201041;
+    padding: 9px 10px;
+}
+.league-header {
+    display: flex;
+    align-items: center;
+}
+.coaches-link{
+    margin: 0 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+
+}
+
+.team-logo{
+    width: 35px;
+    height: 35px;
+}
+.coach-logo{
+    width: 35px;
+    height: 35px;
+}
+
+.nationality-flag{
+   width:  20px;
+   height: 13.33px;
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+}
+
+.player-image-small {
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+
+
+
+.team-img{
+position: absolute;
+    bottom: 25px;
+    right: 2px;
+    background: #fff;
+    border-radius: 100%;
+    height: 80px;
+    width: 80px;
+    padding: 10px;
+    overflow-clip-margin: border-box;
+    overflow: clip;
+    box-shadow: 0 0 2px 1px #e1e1e1!important;
+
+}
+.stadium-img{
+    width:105%;
+    padding: 5px;
+    border-radius:2%;
+    box-shadow: 0 0 2px 1px #e1e1e1!important;
+
+}
+p{
+    padding: 10px 6px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2;
+    position: relative;
+}
+.card-img-top{
+
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    box-sizing: border-box;
+    flex-basis: 33.33%;
+    padding: 2px;
+
+}
+.match-time{
+    font-size: 16px;
+    font-weight: 700;
+}
+.match-date{
+    font-size: 12px;
+    font-style: inherit;
+}
+.home-team{
+    text-align: right;
+}
+.away-team{
+    text-align: left;
+}
+
+.ligtable.custom-button {
+  min-width: 130px;
+  height: 40px;
+  color: #000; /* Black font color */
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  z-index: 0;
+  overflow: hidden;
+  border: 2px solid #000; /* Black border color */
+  background: #fff;
+}
+
+/* Hover effect: change the background color to the data-table attribute value */
+.ligtable.custom-button:hover {
+  background: var(--hover-color, #0074e4); /* Default to blue (#0074e4) if data-table attribute not set */
+  color: #fff; /* White font color on hover */
+}
+
+/* Pseudo-element for the sliding color effect on hover */
+.ligtable.custom-button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+  left: -100%; /* Start off-screen to the left */
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Initial background color */
+}
+
+/* Sliding color effect */
+.ligtable.custom-button:hover::before {
+  left: 0;
+  background: var(--hover-color, #111544); /* Default to dark blue (#111544) if data-table attribute not set */
+}
+
+
+.ligtable.custom-button[data-table="laligaTable"] {
+  --hover-color: #fb4c44;
+}
+
+.ligtable.custom-button[data-table="serieaTable"] {
+  --hover-color: #508dd3;
+}
+
+.ligtable.custom-button[data-table="premierleagueTable"] {
+  --hover-color: #332750;
+}
+
+.ligtable.custom-button[data-table="bundesligaTable"] {
+  --hover-color: #d20514;
+}
+
+.ligtable.custom-button[data-table="ligue1Table"] {
+  --hover-color: #091c3d;
+}
+
+.ligtable.custom-button[data-table="UCLTable"] {
+  --hover-color: #2f3031;
+}
+
+.ligtable.custom-button[data-table="EuropaTable"] {
+  --hover-color: #e7803b;
+}
+
+.table.table-striped{
+    width:80%
+}
+
+.table>tbody>tr>td {
+    background: white;
+    vertical-align: middle;
+}
+
+.home-odds {
+  border: 1px solid #000; /* Add a black border around the element */
+    width: 35px;
+
+}
+.away-odds {
+  border: 1px solid #000; /* Add a black border around the element */
+    width: 35px;
+}

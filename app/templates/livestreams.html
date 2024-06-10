@@ -1,0 +1,73 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+
+<script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/livestreams.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+	<!-- BANNER -->
+	<div class="section subbanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="caption">Football Livestreams</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Livestream Links Section -->
+
+ <table>
+    <thead>
+        <tr>
+            <th>Time:</th>
+            <th>Match:</th>
+            <th class="watchz">Watch:</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for match_name, matches in match_groups.items() %}
+        <tr>
+            <td class="timez">{{ matches[0].time }}</td>
+            <td class="matchez">{{ match_name }}</td>
+            <td>
+                <ul>
+                    {% for match in matches %}
+                    <li>
+                        <a href="javascript:void(0);" onclick="toggleIframe(this, '{{ match.url }}')" class="linkz">Link {{ loop.index }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr class="iframe-tr">
+            <td colspan="3" class="iframez">
+                <div class="iframe-container" style="display: none;"></div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    function toggleIframe(link, url) {
+        var tr = link.closest('tr');
+        var iframeContainer = tr.nextElementSibling.querySelector('.iframe-container');
+
+        if (iframeContainer.style.display === 'none') {
+            iframeContainer.style.display = 'block';
+            iframeContainer.innerHTML = '<iframe src="' + url + '" width="100%" height="400px" style="display: block; margin: 0 auto;" allowfullscreen sandbox="allow-same-origin allow-scripts"</iframe>';
+        } else {
+            iframeContainer.style.display = 'none';
+            iframeContainer.innerHTML = '';
+        }
+    }
+</script>
+
+
+
+
+	<!-- CLIENT SECTION -->
+{% include "footer.html" %}

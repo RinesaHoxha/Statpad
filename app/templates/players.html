@@ -1,0 +1,221 @@
+{% include "header.html" %}
+{% include "navbar.html" %}
+<style>
+    /* Add CSS for small player images */
+    .player-image-small {
+        width: 50px;  /* Adjust the width to your preferred size */
+        height: auto;
+    }
+</style>
+
+<script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/players.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+<!-- BANNER -->
+	<div class="section subbanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="caption">Player Statistics</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="leagues">
+    <a href="#" class="ligtable" onclick="showTable('premierleagueTable'); return false;">Premier league</a>
+    <a href="#" class="ligtable" onclick="showTable('laligaTable'); return false;">La liga</a>
+    <a href="#" class="ligtable" onclick="showTable('serieaTable'); return false;">Serie A</a>
+    <a href="#" class="ligtable" onclick="showTable('bundesligaTable'); return false;">Bundesliga</a>
+    <a href="#" class="ligtable" onclick="showTable('ligue1Table'); return false;">Ligue 1</a>
+</div>
+
+<div class="table-container" id="laligaTable" style="display: block;">
+        <img src="https://crystalpng.com/wp-content/uploads/2023/06/La-liga-new-logo-circle-red.png" alt="La Liga Logo" class="league-image">
+    <h1>Spanish La Liga 23/24</h1>
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[:15] %}
+                    <tr>
+                        <td>{{ player.rank }}</td>
+                        <td>
+                            <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                            {{ player.player_name }}
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+<div class="table-container" id="bundesligaTable">
+    <img src="https://dailytrust.com/wp-content/uploads/2020/05/Bundesliga.png" alt="Bundesliga Logo" class="league-image">
+    <h1>German Bundesliga 23/24</h1>
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[15:30] %}
+                    <tr>
+                        <td>{{ player.rank }}</td>
+                        <td>
+                            <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                            {{ player.player_name }}
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+<div class="table-container" id="ligue1Table">
+    <img src="https://logospng.org/download/ligue-1/ligue-1-768.png" alt="Ligue 1 Logo" class="league-image">
+    <h1>French Ligue 1 23/24</h1>
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[30:45] %}
+                    <tr>
+                        <td>{{ player.rank }}</td>
+                        <td>
+                            <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                            {{ player.player_name }}
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+<div class="table-container" id="serieaTable">
+    <img src="https://logospng.org/download/serie-a-tim/serie-a-tim-768.png" alt="Serie A Logo" class="league-image">
+    <h1>Italian Serie A 23/24</h1>
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[45:60] %}
+                    <tr>
+                        <td>{{ player.rank }}</td>
+                        <td>
+                            <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                            {{ player.player_name }}
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+<div class="table-container" id="premierleagueTable">
+    <img src="https://1.bp.blogspot.com/-GsXX3p7KkbI/YLUwmAwbxoI/AAAAAAAAUbE/d0PVC3Jj09A9VGhXeYtA7Wd2IFJqwZMMgCLcBGAsYHQ/s664/Premier%2BLeague.png"
+    alt="Premier League Logo" class="league-image">
+    <h1>English Premier League 23/24</h1>
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[60:75] %}
+                    <tr>
+                        <td>{{ player.rank }}</td>
+                        <td>
+                            <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                            {{ player.player_name }}
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+<script>
+    showTable('league1Table');
+
+    function showTable(tableId) {
+        const tables = document.querySelectorAll('.table-container');
+        tables.forEach(table => {
+            table.style.display = 'none';
+        });
+
+        const selectedTable = document.getElementById(tableId);
+        if (selectedTable) {
+            selectedTable.style.display = 'block';
+        }
+    }
+</script>
+
+{% include "footer.html" %}
