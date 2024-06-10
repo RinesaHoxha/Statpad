@@ -65,6 +65,9 @@
 
 6. **Navigate to the frontend directory and open `index.html` in your browser to view the website.**
 
+   ![image](https://github.com/RinesaHoxha/Statpad/assets/122171723/8dbc79ec-0616-4823-be25-2f6036a2d9e1)
+sneak peak :)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
